@@ -1,5 +1,8 @@
 /*** Fetching user data from an API endpoint ***/
 
+const redux = require("redux");
+const createStore = redux.createStore;
+
 //initial state
 const initialState = {
   loading: false,
@@ -54,3 +57,5 @@ const reducer = (state = initialState, action) => {
       };
   }
 };
+
+const store = createStore(reducer);
