@@ -1,3 +1,6 @@
+const redux = require("redux");
+const createStore = redux.createStore;
+
 const BUY_CAKE = "BUY_CAKE";
 
 // Action: plain JavaScript object with "type" property
@@ -29,3 +32,16 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
+//to create a store, we need to involve redux, so let's import it
+const store = createStore(reducer); // responsibility 1
+console.log("Initial state:", store.getState()); // responsibility 2
+const unsubscribe = store.subscribe(() =>
+  console.log("Updated state:", store.getState())
+); // responsibility 4
+
+store.dispatch(buyCake()); // responsibility 3
+store.dispatch(buyCake());
+store.dispatch(buyCake());
+
+unsubscribe();
