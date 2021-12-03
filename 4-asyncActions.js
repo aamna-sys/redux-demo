@@ -67,3 +67,22 @@ const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 //we need two packages:
 //axios: makes get requests to an API endpoint
 //redux-thunk: define async action creators (it is a middleware)
+
+const fetchUsers = () => {
+  //thunk middleware allows to return a function from an action creator instead
+  //of an action. It doesn't have to be pure. It is allowed to have side effects.
+  return function (dispatch) {
+    dispatch(fetchUsersRequest());
+    axios
+      .get("jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        //response.data
+        const users = response.data.map((user) => user.id);
+        dispatch(fetchUsersSuccess(users));
+      })
+      .catch((error) => {
+        //error.message
+        dispatch(fetchUsersFailure(error.message));
+      });
+  };
+};
