@@ -2,6 +2,9 @@
 
 const redux = require("redux");
 const createStore = redux.createStore;
+const applyMiddleware = redux.applyMiddleware;
+const thunkMiddleware = require("redux-thunk").default;
+const axios = require("axios");
 
 //initial state
 const initialState = {
@@ -58,4 +61,9 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+
+//use action creators with network requests (i.e. make an API call with Redux)
+//we need two packages:
+//axios: makes get requests to an API endpoint
+//redux-thunk: define async action creators (it is a middleware)
