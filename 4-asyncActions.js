@@ -86,3 +86,9 @@ const fetchUsers = () => {
       });
   };
 };
+
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch(fetchUsers());
